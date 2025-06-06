@@ -1,0 +1,20 @@
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: crmapi
+  datasource:
+    url: jdbc:mysql://localhost:3306/crm_api
+    username: root
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+springdoc:
+  swagger-ui:
+    path: /misproductos.html
+    operationsSorter: method
