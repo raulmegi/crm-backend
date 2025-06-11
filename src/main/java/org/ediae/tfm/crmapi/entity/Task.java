@@ -22,7 +22,9 @@ public class Task {
 
     private String description;
 
+    @Column(name = "initialDate")
     private LocalDate initialDate;
+    @Column(name = "endDate")
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
