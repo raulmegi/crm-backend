@@ -3,6 +3,7 @@ package org.ediae.tfm.crmapi.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "appuser")
 public class AppUser {
 
     @Id
