@@ -28,8 +28,8 @@ public class CustomerController {
 
     @DeleteMapping("/borrar/{id}")
     public ResponseEntity<Void> deleteCustomerById( @PathVariable int id) {
-        customerService.deleteCustomerById(id); // Llama al método del servicio
-        return ResponseEntity.noContent().build(); // Devuelve un 204 No Content
+        customerService.deleteCustomerById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/crearCliente")
