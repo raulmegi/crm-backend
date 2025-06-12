@@ -4,8 +4,8 @@ import org.ediae.tfm.crmapi.entity.Brand;
 import org.ediae.tfm.crmapi.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/brand")
@@ -19,9 +19,14 @@ public class BrandController {
         return brandService.createBrand(brand);
     }
 
-    @GetMapping("/ListarMarcas")
+    @GetMapping("/listarMarcas")
     public List<Brand> findAllBrands() {
         return brandService.findAllBrands();
+    }
+
+    @GetMapping("/marca/{nombre}")
+    public Optional<Brand> findBrandByName(@RequestParam String name) {
+        return brandService.findByName(name);
     }
 
     @PutMapping("/actualizarMarca")

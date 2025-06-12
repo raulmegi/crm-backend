@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.ediae.tfm.crmapi.repository.BrandRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BrandServiceImpl implements IBrandService {
@@ -20,6 +21,11 @@ public class BrandServiceImpl implements IBrandService {
     public List<Brand> findAllBrands() {
         return brandRepository.findAll();
     }
+
+    public Optional<Brand> findByName(String name) {
+        return brandRepository.findByName(name);
+    }
+
     public Brand updateBrand(Brand brand) {
         return brandRepository.save(brand);
     }
