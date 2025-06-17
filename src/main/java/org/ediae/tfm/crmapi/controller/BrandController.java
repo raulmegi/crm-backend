@@ -30,7 +30,7 @@ public class BrandController {
         return  ResponseEntity.ok(brandService.findByName(name));
     }
 
-    @PutMapping("/actualizarMarca")
+    @PutMapping("/actualizarMarca/{id}")
     public ResponseEntity<Brand> updateBrand(@PathVariable Long id, @RequestBody Brand brand) {
         brandService.updateBrand(brand);
         return ResponseEntity.noContent().build();
