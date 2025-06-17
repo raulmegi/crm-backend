@@ -34,9 +34,8 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/actualizarTarea/{id}")
-    public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody Task task) {
-        task.setId(id);
+    @PutMapping("/actualizarTarea")
+    public ResponseEntity<Task> update( @RequestBody Task task) {
         return ResponseEntity.ok(taskService.update(task));
     }
 
