@@ -3,6 +3,7 @@ package org.ediae.tfm.crmapi.controller;
 import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.service.ITaskService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,36 +19,57 @@ public class TaskController {
     }
 
     @PostMapping("/crearTarea")
-    public ResponseEntity<Task> create(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.create(task));
+    public ModelMap crearTarea(@RequestBody Task task) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.create(task));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/listarTareas")
-    public ResponseEntity<List<Task>> getAll() {
-        return ResponseEntity.ok(taskService.findAll());
+    public ModelMap getAll() {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.findAll());
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/encontrarPorId/{id}")
-    public ResponseEntity<Task> getById(@PathVariable Long id) {
-        return taskService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ModelMap getById(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.findById(id));
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @PutMapping("/actualizarTarea")
-    public ResponseEntity<Task> update( @RequestBody Task task) {
-        return ResponseEntity.ok(taskService.update(task));
+    public ModelMap update( @RequestBody Task task) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.update(task));
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @DeleteMapping("eliminarTarea/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        taskService.delete(id);
-        return ResponseEntity.noContent().build();
+    public ModelMap delete(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.delete(id));
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/estado/{status}")
-    public ResponseEntity<List<Task>> getByStatus(@PathVariable Task.Status status) {
-        return ResponseEntity.ok(taskService.findByStatus(status));
+    public ModelMap getByStatus(@PathVariable Task.Status status) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(taskService.findByStatus(status));
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
 
