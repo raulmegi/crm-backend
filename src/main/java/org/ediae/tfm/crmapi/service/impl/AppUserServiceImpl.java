@@ -40,4 +40,23 @@ public class AppUserServiceImpl implements iAppUserService {
         appUserRepository.deleteById(id);
     }
 
+    @Override
+    public Optional<AppUser> findAppUserByEmail(String email) {
+        return appUserRepository.findAppUserByEmail(email);
+    }
+    @Override
+    public AppUser login(String email, String password) {
+        Optional<AppUser> optionalAppUser = appUserRepository.findAppUserByEmail(email);
+        if (optionalAppUser.isPresent()) {
+            AppUser appUser = optionalAppUser.get();
+            if (appUser.getPassword().equals(password)) {
+                System.out.println("Login successful");
+                return appUser;
+            } else {
+                throw new RuntimeException("Invalid email or password");
+            }
+        } else {
+            throw new RuntimeException("Invalid email or password");
+        }
+    }
 }
