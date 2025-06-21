@@ -28,10 +28,26 @@ public class GeneralConstants {
     public static final String TASK_DELETE_ERROR_MESSAGE = "No se pudo eliminar la tarea";
     public static final String TASK_STATUS_INVALID_MESSAGE = "El estado de la tarea no es válido";
 
-    // Otros posibles
-    public static final int USER_NOT_FOUND_CODE = 200;
-    public static final String USER_NOT_FOUND_MESSAGE = "El usuario no ha sido encontrado";
+    //AppUser códigos y mensajes de error
+    public static final int APPUSER_NOT_FOUND_CODE = 200;
+    public static final int APPUSER_CREATION_ERROR_CODE = 201;
+    public static final int APPUSER_UPDATE_ERROR_CODE = 202;
+    public static final int APPUSER_DELETE_ERROR_CODE = 203;
+    public static final int APPUSER_LOGIN_ERROR_CODE = 204;
+    public static final int APPUSER_EMAIL_NOT_FOUND_CODE = 205;
+    public static final int APPUSER_NAME_SEARCH_ERROR_CODE = 206;
 
+    public static final String APPUSER_NOT_FOUND_MESSAGE = "El usuario no ha sido encontrado";
+    public static final String APPUSER_CREATION_ERROR_MESSAGE = "No se pudo crear el usuario";
+    public static final String APPUSER_UPDATE_ERROR_MESSAGE = "No se pudo actualizar el usuario";
+    public static final String APPUSER_DELETE_ERROR_MESSAGE = "No se pudo eliminar el usuario";
+    public static final String APPUSER_LOGIN_ERROR_MESSAGE = "Email o contraseña inválidos";
+    public static final String APPUSER_EMAIL_NOT_FOUND_MESSAGE = "No se encontró usuario con ese email";
+    public static final String APPUSER_NAME_SEARCH_ERROR_MESSAGE = "Error al buscar usuario por nombre";
+
+
+
+    // Otros posibles
     public static final int CUSTOMER_NOT_FOUND_CODE = 300;
     public static final String CUSTOMER_NOT_FOUND_MESSAGE = "El cliente no ha sido encontrado";
 
