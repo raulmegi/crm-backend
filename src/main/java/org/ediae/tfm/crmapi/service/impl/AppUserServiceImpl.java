@@ -59,4 +59,8 @@ public class AppUserServiceImpl implements iAppUserService {
             throw new RuntimeException("Invalid email or password");
         }
     }
+    @Override
+    public List<AppUser> obtenerAppUserByName(String name) {
+        return appUserRepository.findByNameContainingIgnoreCase(name);
+    }
 }

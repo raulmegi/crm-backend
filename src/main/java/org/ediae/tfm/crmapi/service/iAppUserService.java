@@ -13,4 +13,5 @@ public interface iAppUserService {
     void deleteAppUserById(Long id);
     Optional<AppUser> findAppUserByEmail(String email);
     public AppUser login(String email, String password);
+    List<AppUser> obtenerAppUserByName(String name);
 }

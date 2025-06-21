@@ -40,7 +40,7 @@ public class AppUserController {
         return ResponseEntity.ok(appUserService.findAppUserById(id));
     }
 
-    @GetMapping("/obtenerAppUserPorEmail/{email}")
+    @GetMapping("/obtenerAppUserByEmail/{email}")
     public ResponseEntity<Optional<AppUser>> findAppUserByEmail(@PathVariable String email){
         return ResponseEntity.ok(appUserService.findAppUserByEmail(email));
     }
@@ -64,5 +64,8 @@ public class AppUserController {
                 .header("X-Login-Confirmation" ,"User ID "+appUser.getId() +" has logged in successfully")  // ✅ Adds a test-friendly message
                 .body(appUser);
     }
-
+    @GetMapping("/obtenerAppUserByName")
+    public ResponseEntity<List<AppUser>> obtenerAppUserByName(@RequestParam String name) {
+        return ResponseEntity.ok(appUserService.obtenerAppUserByName(name));
+    }
 }
