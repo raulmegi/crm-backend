@@ -36,6 +36,7 @@ public class GeneralConstants {
     public static final int APPUSER_LOGIN_ERROR_CODE = 204;
     public static final int APPUSER_EMAIL_NOT_FOUND_CODE = 205;
     public static final int APPUSER_NAME_SEARCH_ERROR_CODE = 206;
+    public static final int APPUSER_EMAIL_IN_USE_ERROR_CODE = 207;
 
     public static final String APPUSER_NOT_FOUND_MESSAGE = "El usuario no ha sido encontrado";
     public static final String APPUSER_CREATION_ERROR_MESSAGE = "No se pudo crear el usuario";
@@ -44,7 +45,7 @@ public class GeneralConstants {
     public static final String APPUSER_LOGIN_ERROR_MESSAGE = "Email o contraseña inválidos";
     public static final String APPUSER_EMAIL_NOT_FOUND_MESSAGE = "No se encontró usuario con ese email";
     public static final String APPUSER_NAME_SEARCH_ERROR_MESSAGE = "Error al buscar usuario por nombre";
-
+    public static final String APPUSER_EMAIL_IN_USE_ERROR_MESSAGE = "Este correo electrónico ya existe";
 
 
     // Otros posibles
