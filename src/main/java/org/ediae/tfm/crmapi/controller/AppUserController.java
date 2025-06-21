@@ -2,16 +2,15 @@ package org.ediae.tfm.crmapi.controller;
 
 import org.ediae.tfm.crmapi.dto.LoginRequest;
 import org.ediae.tfm.crmapi.entity.AppUser;
-import org.ediae.tfm.crmapi.entity.Customer;
+import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
-import org.ediae.tfm.crmapi.service.impl.AppUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/appUser")
@@ -23,49 +22,80 @@ public class AppUserController {
     private AppUserRepository appUserRepository;
 
     @PostMapping("/crearAppUser")
-    public ResponseEntity<AppUser> createAppUser(@RequestBody AppUser appUser) {
-        if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already in use");
+    public ModelMap createAppUser(@RequestBody AppUser appUser) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.createAppUser(appUser));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
-        return ResponseEntity.ok(appUserService.createAppUser(appUser));
     }
 
     @GetMapping("/obtenerTodosAppUser")
-    public ResponseEntity<List<AppUser>> getAllAppUsers(){
-        return ResponseEntity.ok(appUserService.findAllAppUsers());
+    public ModelMap getAllAppUsers() {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.findAllAppUsers());
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/obtenerAppUserById/{id}")
-    public ResponseEntity<Optional<AppUser>> findAppUserById(@PathVariable Long id){
-        return ResponseEntity.ok(appUserService.findAppUserById(id));
+    public ModelMap getAppUserById(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.findAppUserById(id));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/obtenerAppUserByEmail/{email}")
-    public ResponseEntity<Optional<AppUser>> findAppUserByEmail(@PathVariable String email){
-        return ResponseEntity.ok(appUserService.findAppUserByEmail(email));
+    public ModelMap getAppUserByEmail(@PathVariable String email) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.findAppUserByEmail(email));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
+
+    @GetMapping("/obtenerAppUserByName")
+    public ModelMap getAppUserByName(@RequestParam String name) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.findAppUserByName(name));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
+    }
+
     @PutMapping("/actualizarAppUser/{id}")  //PETA SI NO ACTUALIZAS ALGO
-    public ResponseEntity<AppUser> updateClient(@PathVariable Long id, @RequestBody AppUser appUser){
+    public ModelMap updateClient(@PathVariable Long id, @RequestBody AppUser appUser) {
         appUser.setId(id);
-        return ResponseEntity.ok(appUserService.updateAppUser(appUser));
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.updateAppUser(appUser));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     // @PutMapping("/cambiarContrasena") -algo más complicado por lo visto
 
     @DeleteMapping("eliminarAppUser/{id}")
-    public ResponseEntity<Void> deleteAppUserById(@PathVariable Long id) {
-        appUserService.deleteAppUserById(id);
-        return ResponseEntity.noContent().build();
+    public ModelMap deleteAppUserById(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.deleteAppUserById(id));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
+
     @PostMapping("/login")
-    public ResponseEntity<AppUser> login(@RequestBody LoginRequest loginRequest) {
-        AppUser appUser = appUserService.login(loginRequest.getEmail(), loginRequest.getPassword());
-        return ResponseEntity.ok()
-                .header("X-Login-Confirmation" ,"User ID "+appUser.getId() +" has logged in successfully")  // ✅ Adds a test-friendly message
-                .body(appUser);
-    }
-    @GetMapping("/obtenerAppUserByName")
-    public ResponseEntity<List<AppUser>> obtenerAppUserByName(@RequestParam String name) {
-        return ResponseEntity.ok(appUserService.obtenerAppUserByName(name));
+    public ModelMap login(@RequestBody LoginRequest loginRequest) {
+        try {
+            AppUser appUser = appUserService.login(loginRequest.getEmail(), loginRequest.getPassword());
+            ModelMap modelMap = GeneralUtilsController.crearRespuestaModelMapOk(appUser);
+            modelMap.put("loginMessage", "User ID " + appUser.getId() + " has logged in successfully");
+            return modelMap;
+        } catch(GeneralException genEx){
+            return GeneralUtilsController.crearRespuestaModelMapError(genEx);
+        }
     }
 }

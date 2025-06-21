@@ -11,8 +11,8 @@ public interface iAppUserService {
     List<AppUser> findAllAppUsers() throws GeneralException;
     Optional<AppUser> findAppUserById(Long id) throws GeneralException;
     AppUser updateAppUser (AppUser appUser) throws GeneralException;
-    void deleteAppUserById(Long id) throws GeneralException;
+    boolean deleteAppUserById(Long id) throws GeneralException;
     AppUser findAppUserByEmail(String email) throws GeneralException;
-    public AppUser login(String email, String password) throws GeneralException;
+    AppUser login(String email, String password) throws GeneralException;
     List<AppUser> findAppUserByName(String name) throws GeneralException;
 }

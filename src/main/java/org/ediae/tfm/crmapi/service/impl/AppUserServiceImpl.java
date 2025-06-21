@@ -7,7 +7,6 @@ import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +19,19 @@ public class AppUserServiceImpl implements iAppUserService {
     @Override
     public AppUser createAppUser(AppUser appUser) throws GeneralException {
         try{
+            if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
+                throw new GeneralException(
+                        GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
+                        GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + " " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+            }
             return appUserRepository.save(appUser);
-        } catch (Exception e) {
+
+        } catch (GeneralException genEx) {
+            throw genEx;
+        } catch (Exception ex) {
             throw new GeneralException(
-                    GeneralConstants.APPUSER_CREATION_ERROR_CODE,
-                    GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE);
+                    GeneralConstants.GENERAL_ERROR_CODE,
+                    GeneralConstants.GENERAL_ERROR_MESSAGE);
         }
     }
 
@@ -32,7 +39,7 @@ public class AppUserServiceImpl implements iAppUserService {
     public List<AppUser> findAllAppUsers() throws GeneralException {
         try{
             return appUserRepository.findAll();
-        } catch (Exception e) {
+        } catch (Exception ex) {
             throw new GeneralException(
                     GeneralConstants.GENERAL_ERROR_CODE,
                     GeneralConstants.GENERAL_ERROR_MESSAGE);
@@ -43,7 +50,7 @@ public class AppUserServiceImpl implements iAppUserService {
     public Optional<AppUser> findAppUserById(Long id) throws GeneralException {
         try{
             return appUserRepository.findById(id);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             throw new GeneralException(
                     GeneralConstants.APPUSER_NOT_FOUND_CODE,
                     GeneralConstants.APPUSER_NOT_FOUND_MESSAGE);
@@ -93,23 +100,29 @@ public class AppUserServiceImpl implements iAppUserService {
     public AppUser updateAppUser(AppUser appUser) throws GeneralException {
         try {
             return appUserRepository.save(appUser);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             throw new GeneralException(
                     GeneralConstants.APPUSER_UPDATE_ERROR_CODE,
                     GeneralConstants.APPUSER_UPDATE_ERROR_MESSAGE);
         }
     }
-
     @Override
-    public void deleteAppUserById(Long id) throws GeneralException {
-        try{
-        appUserRepository.deleteById(id);
-        } catch (Exception e) {
-            throw new GeneralException(
-                    GeneralConstants.APPUSER_DELETE_ERROR_CODE,
-                    GeneralConstants.APPUSER_DELETE_ERROR_MESSAGE);
+        public boolean deleteAppUserById(Long id) throws GeneralException {
+            if (!appUserRepository.existsById(id)) {
+                throw new GeneralException(
+                        GeneralConstants.APPUSER_NOT_FOUND_CODE,
+                        GeneralConstants.APPUSER_NOT_FOUND_MESSAGE);
+            }
+            else try {
+                appUserRepository.deleteById(id);
+                return true;
+            } catch (Exception e) {
+                throw new GeneralException(
+                        GeneralConstants.APPUSER_DELETE_ERROR_CODE,
+                        GeneralConstants.APPUSER_DELETE_ERROR_MESSAGE
+                );
+            }
         }
-    }
 
     @Override
     public AppUser login(String email, String password) throws GeneralException {
@@ -127,7 +140,9 @@ public class AppUserServiceImpl implements iAppUserService {
             }
             System.out.println("Login successful");
             return appUser;
-        } catch (Exception e) {
+        }catch (GeneralException genEx) {
+            throw genEx;
+        }catch (Exception ex) {
             throw new GeneralException(
                     GeneralConstants.GENERAL_ERROR_CODE,
                     GeneralConstants.GENERAL_ERROR_MESSAGE);
