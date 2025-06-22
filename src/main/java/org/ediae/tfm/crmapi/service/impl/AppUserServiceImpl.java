@@ -22,7 +22,7 @@ public class AppUserServiceImpl implements iAppUserService {
             if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
                 throw new GeneralException(
                         GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
-                        GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + " " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+                        GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
             }
             return appUserRepository.save(appUser);
 

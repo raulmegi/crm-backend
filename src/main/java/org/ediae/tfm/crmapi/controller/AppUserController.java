@@ -25,8 +25,8 @@ public class AppUserController {
     public ModelMap createAppUser(@RequestBody AppUser appUser) {
         try {
             return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.createAppUser(appUser));
-        } catch (Exception ex) {
-            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        } catch (GeneralException genEx) {
+            return GeneralUtilsController.crearRespuestaModelMapError(genEx);
         }
     }
 
