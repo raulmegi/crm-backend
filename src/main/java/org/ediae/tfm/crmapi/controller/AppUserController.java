@@ -14,12 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/appUser")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AppUserController {
 
     @Autowired
     private iAppUserService appUserService;
-    @Autowired
-    private AppUserRepository appUserRepository;
 
     @PostMapping("/crearAppUser")
     public ModelMap createAppUser(@RequestBody AppUser appUser) {
