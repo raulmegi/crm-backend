@@ -1,15 +1,16 @@
 package org.ediae.tfm.crmapi.service;
 
 import org.ediae.tfm.crmapi.entity.Brand;
+import org.ediae.tfm.crmapi.exception.GeneralException;
 import java.util.List;
 import java.util.Optional;
 
 public interface IBrandService {
 
-    Brand createBrand(Brand brand);
-    List<Brand> findAllBrands();
-    Optional<Brand> findByName(String name);
-    Brand updateBrand(Brand brand);
-    boolean deleteBrandById(Long id);
+    Brand createBrand(Brand brand) throws GeneralException;;
+    List<Brand> findAllBrands() throws GeneralException;;
+    Brand findByName(String name) throws GeneralException;;
+    Brand updateBrand(Brand brand) throws GeneralException;;
+    boolean deleteBrandById(Long id) throws GeneralException;;
 
 }
