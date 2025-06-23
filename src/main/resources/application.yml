@@ -1,5 +1,6 @@
 server:
   port: 8081
+
 spring:
   main:
     allow-circular-references: true
@@ -16,6 +17,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  security:
+    user:
+      name: root
+      password: "{noop}admin"
+
 springdoc:
   swagger-ui:
     path: /crm_db.html

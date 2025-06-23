@@ -6,6 +6,7 @@ import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -16,18 +17,20 @@ public class AppUserServiceImpl implements iAppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public AppUser createAppUser(AppUser appUser) throws GeneralException {
-        try{
-            if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
-                throw new GeneralException(
-                        GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
-                        GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
-            }
-            return appUserRepository.save(appUser);
+        if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
+                    GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+        }
+            try{
+                appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+                return appUserRepository.save(appUser);
 
-        } catch (GeneralException genEx) {
-            throw genEx;
         } catch (Exception ex) {
             throw new GeneralException(
                     GeneralConstants.GENERAL_ERROR_CODE,
@@ -133,7 +136,7 @@ public class AppUserServiceImpl implements iAppUserService {
                         GeneralConstants.APPUSER_LOGIN_ERROR_MESSAGE);
             }
             AppUser appUser = optionalAppUser.get();
-            if (!appUser.getPassword().equals(password)) {
+            if (!passwordEncoder.matches(password, appUser.getPassword())) {
                 throw new GeneralException(
                         GeneralConstants.APPUSER_LOGIN_ERROR_CODE,
                         GeneralConstants.APPUSER_LOGIN_ERROR_MESSAGE);
