@@ -2,7 +2,6 @@ package org.ediae.tfm.crmapi.service.impl;
 
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.entity.Brand;
-import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;

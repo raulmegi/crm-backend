@@ -3,11 +3,8 @@ package org.ediae.tfm.crmapi.controller;
 import org.ediae.tfm.crmapi.entity.Brand;
 import org.ediae.tfm.crmapi.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/brand")

@@ -3,7 +3,6 @@ package org.ediae.tfm.crmapi.service;
 import org.ediae.tfm.crmapi.entity.Brand;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import java.util.List;
-import java.util.Optional;
 
 public interface IBrandService {
 
