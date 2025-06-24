@@ -3,10 +3,8 @@ package org.ediae.tfm.crmapi.controller;
 import org.ediae.tfm.crmapi.entity.Brand;
 import org.ediae.tfm.crmapi.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/brand")
@@ -16,28 +14,48 @@ public class BrandController {
     private IBrandService brandService;
 
     @PostMapping("/crearMarca")
-    public ResponseEntity<Brand> createBrand(@RequestBody Brand brand) {
-        return ResponseEntity.ok(brandService.createBrand(brand));
+    public ModelMap createBrand(@RequestBody Brand brand) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.createBrand(brand));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @GetMapping("/listarMarcas")
-    public ResponseEntity<List<Brand>> findAllBrands() {
-        return  ResponseEntity.ok(brandService.findAllBrands());
+    public ModelMap findAllBrands() {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.findAllBrands());
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
-    @GetMapping("/marca/{nombre}")
-    public ResponseEntity<Optional<Brand>> findBrandByName(@RequestParam String name) {
-        return  ResponseEntity.ok(brandService.findByName(name));
+    @GetMapping("/marca")
+    public ModelMap findBrandByName(@RequestParam String name) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.findByName(name));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @PutMapping("/actualizarMarca/{id}")
-    public ResponseEntity<Brand> updateBrand(@PathVariable Long id, @RequestBody Brand brand) {
-        brandService.updateBrand(brand);
-        return ResponseEntity.noContent().build();
+    public ModelMap updateBrand(@PathVariable Long id, @RequestBody Brand brand) {
+        try {
+            brand.setId(id); // Asegura que el ID sea correcto antes de actualizar
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.updateBrand(brand));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 
     @DeleteMapping("/eliminarMarca/{id}")
-    public ResponseEntity<Boolean> deleteBrandById(@PathVariable Long id) {
-        return ResponseEntity.ok(brandService.deleteBrandById(id));
+    public ModelMap deleteBrandById(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.deleteBrandById(id));
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
     }
 }
