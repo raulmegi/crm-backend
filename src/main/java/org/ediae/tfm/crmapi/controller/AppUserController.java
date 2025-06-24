@@ -1,16 +1,16 @@
 package org.ediae.tfm.crmapi.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.ediae.tfm.crmapi.security.JwtService;
 import org.ediae.tfm.crmapi.dto.LoginRequest;
 import org.ediae.tfm.crmapi.entity.AppUser;
 import org.ediae.tfm.crmapi.exception.GeneralException;
-import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/appUser")
@@ -19,6 +19,9 @@ public class AppUserController {
 
     @Autowired
     private iAppUserService appUserService;
+    @Autowired
+    private JwtService jwtService;
+
 
     @PostMapping("/crearAppUser")
     public ModelMap createAppUser(@RequestBody AppUser appUser) {
@@ -87,14 +90,39 @@ public class AppUserController {
     }
 
     @PostMapping("/login")
-    public ModelMap login(@RequestBody LoginRequest loginRequest) {
+    public ModelMap login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
             AppUser appUser = appUserService.login(loginRequest.getEmail(), loginRequest.getPassword());
+            String token = jwtService.generateToken(appUser);
+            ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                    .httpOnly(true)
+                    .secure(false) // set to true when using HTTPS
+                    .path("/")
+                    .maxAge(86400)
+                    .sameSite("Lax")
+                    .build();
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
             ModelMap modelMap = GeneralUtilsController.crearRespuestaModelMapOk(appUser);
-            modelMap.put("loginMessage", "User ID " + appUser.getId() + " has logged in successfully");
+            modelMap.put("loginMessage", "User ID " + appUser.getId() + " ha iniciado la sesión con éxito");
             return modelMap;
         } catch(GeneralException genEx){
             return GeneralUtilsController.crearRespuestaModelMapError(genEx);
         }
     }
+    @PostMapping("/logout")
+    public ModelMap logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Strict")
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return GeneralUtilsController.crearRespuestaModelMapOk("Sesión cerrada con éxito");
+    }
+
 }

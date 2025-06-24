@@ -22,6 +22,9 @@ spring:
       name: root
       password: "{noop}admin"
 
+jwt:
+  secret: MyCookieJar123
+
 springdoc:
   swagger-ui:
     path: /crm_db.html
