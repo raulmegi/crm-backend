@@ -25,8 +25,8 @@ public class GeneralUtilsController {
         ModelMap response = new ModelMap();
         response.put(GeneralConstants.TYPE, GeneralConstants.EXCEPTION);
         response.put(GeneralConstants.EXCEPTION, new HashMap<String, Object>() {{
-            put("codigoDeError", genEx.getCodigoDeError());
-            put("mensajeDeError", genEx.getMensajeDeError());
+            put("codigoDeError", genEx.getErrorCode());
+            put("mensajeDeError", genEx.getErrorMessage());
         }});
         response.put(GeneralConstants.DATA, null);
         return response;
