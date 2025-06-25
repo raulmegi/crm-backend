@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/cliente")
 public class CustomerController {
@@ -27,18 +28,17 @@ public class CustomerController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public ResponseEntity<Void> deleteCustomerById( @PathVariable int id) {
-        customerService.deleteCustomerById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Boolean> deleteCustomerById( @PathVariable int id) {
+        return ResponseEntity.ok(customerService.deleteCustomerById(id));
     }
 
     @PostMapping("/crearCliente")
-    public ResponseEntity<Customer> createClient(@RequestBody Customer customer){
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
         return ResponseEntity.ok(customerService.createCustomer(customer));
     }
 
     @PutMapping("/actualizarCliente")
-    public ResponseEntity<Customer> updateClient(@RequestBody Customer customer){
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer){
         return ResponseEntity.ok(customerService.updateCustomer(customer));
     }
 

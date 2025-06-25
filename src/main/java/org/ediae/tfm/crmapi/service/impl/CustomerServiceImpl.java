@@ -41,8 +41,13 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public void deleteCustomerById(int id) {
-        customerRepository.deleteById(id);
+    public Boolean deleteCustomerById(int id) {
+        if (customerRepository.existsById(id)) {
+            customerRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
 
     }
 }

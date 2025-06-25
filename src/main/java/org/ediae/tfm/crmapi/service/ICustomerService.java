@@ -10,7 +10,7 @@ public interface ICustomerService {
     Optional<Customer> findCustomerById(int id);
     Customer createCustomer(Customer customer);
     Customer updateCustomer(Customer customer);
-    void deleteCustomerById(int id);
+    Boolean deleteCustomerById(int id);
 
 
 }
