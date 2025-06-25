@@ -40,6 +40,15 @@ public class BrandController {
         }
     }
 
+    @GetMapping("/encontrarMarca/{id}")
+    public ModelMap getById(@PathVariable Long id) {
+        try {
+            return GeneralUtilsController.crearRespuestaModelMapOk(brandService.findBrandById(id));
+        }catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
+    }
+
     @PutMapping("/actualizarMarca/{id}")
     public ModelMap updateBrand(@PathVariable Long id, @RequestBody Brand brand) {
         try {

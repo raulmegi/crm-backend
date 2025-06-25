@@ -2,6 +2,7 @@ package org.ediae.tfm.crmapi.service.impl;
 
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.entity.Brand;
+import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,23 @@ public class BrandServiceImpl implements IBrandService {
     public Brand findByName(String name) throws GeneralException {
         try {
             Optional<Brand> optionalBrand= brandRepository.findByName(name);
+            if(optionalBrand.isPresent()) {
+                return optionalBrand.get();
+            } else {
+                throw new GeneralException(GeneralConstants.TASK_NOT_FOUND_CODE, GeneralConstants.TASK_NOT_FOUND_MESSAGE);
+            }
+        } catch (GeneralException genEx) {
+            throw genEx;
+        } catch (Exception ex) {
+            throw new GeneralException(
+                    GeneralConstants.GENERAL_ERROR_CODE,
+                    GeneralConstants.GENERAL_ERROR_MESSAGE);
+        }
+    }
+
+    public Brand findBrandById(Long id) throws GeneralException{
+        try {
+            Optional<Brand> optionalBrand= brandRepository.findById(id);
             if(optionalBrand.isPresent()) {
                 return optionalBrand.get();
             } else {
