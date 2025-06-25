@@ -1,6 +1,16 @@
 package org.ediae.tfm.crmapi.constant;
 
 public class GeneralConstants {
+    public static final int CONTACT_CREATION_ERROR_CODE = 101;
+    public static final String CONTACT_CREATION_ERROR_MESSAGE = "No se ha podido crear el contacto";
+    public static final int CONTACT_NOT_FOUND_CODE = 100;
+    public static final String CONTACT_NOT_FOUND_MESSAGE = "El contacto no ha sido encontrado";
+    public static final int CONTACT_EDIT_ERROR_CODE = 102;
+    public static final String CONTACT_EDIT_ERROR_MESSAGE = "No se ha podido actualizar el contacto";
+    public static final int CONTACT_DELETE_ERROR_CODE = 103;
+    public static final String CONTACT_DELETE_ERROR_MESSAGE = "No se ha podido eliminar el contacto";
+
+
     private GeneralConstants() {}
 
     // Tipos de respuesta
@@ -47,10 +57,20 @@ public class GeneralConstants {
     public static final String APPUSER_NAME_SEARCH_ERROR_MESSAGE = "Error al buscar usuario por nombre";
     public static final String APPUSER_EMAIL_IN_USE_ERROR_MESSAGE = "Este correo electrónico ya existe";
 
+    // Códigos y mensajes específicos para clientes
+    public static final int CUSTOMER_NOT_FOUND_CODE = 300;
+    public static final int CUSTOMER_CREATION_ERROR_CODE = 301;
+    public static final int CUSTOMER_UPDATE_ERROR_CODE = 302;
+    public static final int CUSTOMER_DELETE_ERROR_CODE = 303;
+
+
+    public static final String CUSTOMER_CREATION_ERROR_MESSAGE = "No se pudo crear el cliente";
+    public static final String CUSTOMER_UPDATE_ERROR_MESSAGE = "No se pudo actualizar el cliente";
+    public static final String CUSTOMER_DELETE_ERROR_MESSAGE = "No se pudo eliminar el cliente";
+    public static final String CUSTOMER_NOT_FOUND_MESSAGE = "El cliente no ha sido encontrado";
+
 
     // Otros posibles
-    public static final int CUSTOMER_NOT_FOUND_CODE = 300;
-    public static final String CUSTOMER_NOT_FOUND_MESSAGE = "El cliente no ha sido encontrado";
 
     public static final String GENERAL_ERROR_MESSAGE = "Error inesperado en el servidor";
     public static final String BD_ERROR_MESSAGE = "Error de conexión a base de datos";
