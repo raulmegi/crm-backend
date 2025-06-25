@@ -39,6 +39,10 @@ public class Task {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
     public Long getId() {
         return id;
     }
@@ -101,5 +105,13 @@ public class Task {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }
