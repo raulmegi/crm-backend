@@ -1,6 +1,16 @@
 package org.ediae.tfm.crmapi.constant;
 
 public class GeneralConstants {
+    public static final int CONTACT_CREATION_ERROR_CODE = 101;
+    public static final String CONTACT_CREATION_ERROR_MESSAGE = "No se ha podido crear el contacto";
+    public static final int CONTACT_NOT_FOUND_CODE = 100;
+    public static final String CONTACT_NOT_FOUND_MESSAGE = "El contacto no ha sido encontrado";
+    public static final int CONTACT_EDIT_ERROR_CODE = 102;
+    public static final String CONTACT_EDIT_ERROR_MESSAGE = "No se ha podido actualizar el contacto";
+    public static final int CONTACT_DELETE_ERROR_CODE = 103;
+    public static final String CONTACT_DELETE_ERROR_MESSAGE = "No se ha podido eliminar el contacto";
+
+
     private GeneralConstants() {}
 
     // Tipos de respuesta
