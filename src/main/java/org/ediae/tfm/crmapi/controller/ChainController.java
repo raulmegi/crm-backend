@@ -1,7 +1,6 @@
 package org.ediae.tfm.crmapi.controller;
 
-
-import org.ediae.tfm.crmapi.service.IZoneService;
+import org.ediae.tfm.crmapi.service.IChainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,25 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/zone")
-public class ZoneController {
+@RequestMapping("/chain")
+public class ChainController {
 
     @Autowired
-    private IZoneService zoneService;
+    private IChainService chainService;
 
-    @GetMapping("/listarZonas")
-    public ModelMap findAllZones() {
+    @GetMapping("/listarCadenas")
+    public ModelMap findAllChains() {
         try {
-            return GeneralUtilsController.crearRespuestaModelMapOk(zoneService.findAllZones());
+            return GeneralUtilsController.crearRespuestaModelMapOk(chainService.findAllChains());
         } catch (Exception ex) {
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }
 
-    @GetMapping("/encontrarZona/{id}")
-    public ModelMap getZoneById(@PathVariable Long id) {
+    @GetMapping("/encontrarCadena/{id}")
+    public ModelMap getChainById(@PathVariable Long id) {
         try {
-            return GeneralUtilsController.crearRespuestaModelMapOk(zoneService.findZoneById(id));
+            return GeneralUtilsController.crearRespuestaModelMapOk(chainService.findChainById(id));
         }catch (Exception ex) {
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
