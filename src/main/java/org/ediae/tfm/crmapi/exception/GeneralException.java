@@ -2,29 +2,30 @@ package org.ediae.tfm.crmapi.exception;
 
 public class GeneralException extends Exception {
 
-    public GeneralException(int codigoDeError, String mensajeDeError) {
-        super(mensajeDeError);
-        this.codigoDeError = codigoDeError;
-        this.mensajeDeError = mensajeDeError;
+    private int errorCode;
+
+    private String errorMessage;
+
+    public GeneralException(int errorCode, String errorMessage) {
+        super(errorMessage);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
-    private int codigoDeError;
-
-    private String mensajeDeError;
-
-    public int getCodigoDeError() {
-        return codigoDeError;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setCodigoDeError(int codigoDeError) {
-        this.codigoDeError = codigoDeError;
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public String getMensajeDeError() {
-        return mensajeDeError;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setMensajeDeError(String mensajeDeError) {
-        this.mensajeDeError = mensajeDeError;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
+

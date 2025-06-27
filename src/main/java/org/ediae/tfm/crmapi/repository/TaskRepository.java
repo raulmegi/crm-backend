@@ -5,7 +5,6 @@ import org.ediae.tfm.crmapi.entity.Customer;
 import org.ediae.tfm.crmapi.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 

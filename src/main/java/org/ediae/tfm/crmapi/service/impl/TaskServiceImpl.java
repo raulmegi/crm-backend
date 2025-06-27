@@ -6,9 +6,9 @@ import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.repository.TaskRepository;
 import org.ediae.tfm.crmapi.service.ITaskService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class TaskServiceImpl implements ITaskService {
 
