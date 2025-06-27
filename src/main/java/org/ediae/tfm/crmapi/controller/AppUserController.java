@@ -1,6 +1,9 @@
 package org.ediae.tfm.crmapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.security.JwtService;
 import org.ediae.tfm.crmapi.dto.LoginRequest;
 import org.ediae.tfm.crmapi.entity.AppUser;
@@ -8,13 +11,14 @@ import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/appUser")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AppUserController {
 
     @Autowired
@@ -23,14 +27,45 @@ public class AppUserController {
     private JwtService jwtService;
 
 
-    @PostMapping("/crearAppUser")
-    public ModelMap createAppUser(@RequestBody AppUser appUser) {
+    @PostMapping("/registro")
+    public ResponseEntity<ModelMap> registerAppUser(@RequestBody AppUser appUser) {
         try {
-            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.createAppUser(appUser));
+            // Log incoming data before returning
+            System.out.println("[DEBUG] Incoming appUser: " + new ObjectMapper().writeValueAsString(appUser));
+
+            ModelMap successBody = GeneralUtilsController.crearRespuestaModelMapOk(
+                    appUserService.registerAppUser(appUser)
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(successBody); // 201 Created
         } catch (GeneralException genEx) {
-            return GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
+    @PostMapping("/crearAppUser")
+    public ResponseEntity<ModelMap> createAppUser(@RequestBody AppUser appUser) {
+        try {
+            // Log incoming data before returning
+            System.out.println("[DEBUG] Incoming appUser: " + new ObjectMapper().writeValueAsString(appUser));
+
+            ModelMap successBody = GeneralUtilsController.crearRespuestaModelMapOk(
+                    appUserService.createAppUser(appUser)
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(successBody); // 201 Created
+        } catch (GeneralException genEx) {
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+        } catch (JsonProcessingException e) {
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(
+                    new GeneralException(GeneralConstants.JSON_PROCESSING_ERROR_CODE, GeneralConstants.JSON_PROCESSING_ERROR_MESSAGE)
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
+    }
+        }
 
     @GetMapping("/obtenerTodosAppUser")
     public ModelMap getAllAppUsers() {
