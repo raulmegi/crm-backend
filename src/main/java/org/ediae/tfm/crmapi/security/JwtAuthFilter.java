@@ -41,6 +41,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        if (path.startsWith("/appUser/registro")) {
+            System.out.println("[JwtAuthFilter] Skipping filter for /appUser/registro");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 1. Extract token from cookies
         String token = extractJwtFromCookies(request);
         System.out.println("[JwtAuthFilter] Token received: " + token);
