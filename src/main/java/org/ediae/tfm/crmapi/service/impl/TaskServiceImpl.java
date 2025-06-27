@@ -1,6 +1,7 @@
 package org.ediae.tfm.crmapi.service.impl;
 
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
+import org.ediae.tfm.crmapi.entity.AppUser;
 import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.repository.TaskRepository;
@@ -102,6 +103,17 @@ public class TaskServiceImpl implements ITaskService {
             throw new GeneralException(
                     GeneralConstants.TASK_STATUS_INVALID_CODE,
                     GeneralConstants.TASK_STATUS_INVALID_MESSAGE
+            );
+        }
+    }
+
+    public List<Task> findByUser(Optional<AppUser> user) throws GeneralException {
+        try {
+            return taskRepository.findByUser(user);
+        } catch (Exception e) {
+            throw new GeneralException(
+                    GeneralConstants.TASK_USER_INVALID_CODE,
+                    GeneralConstants.TASK_USER_INVALID_MESSAGE
             );
         }
     }

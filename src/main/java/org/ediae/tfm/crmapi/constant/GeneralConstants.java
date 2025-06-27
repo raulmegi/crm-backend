@@ -31,12 +31,14 @@ public class GeneralConstants {
     public static final int TASK_UPDATE_ERROR_CODE = 102;
     public static final int TASK_DELETE_ERROR_CODE = 103;
     public static final int TASK_STATUS_INVALID_CODE = 104;
+    public static final int TASK_USER_INVALID_CODE = 105;
 
     public static final String TASK_NOT_FOUND_MESSAGE = "La tarea no ha sido encontrada";
     public static final String TASK_CREATION_ERROR_MESSAGE = "No se pudo crear la tarea";
     public static final String TASK_UPDATE_ERROR_MESSAGE = "No se pudo actualizar la tarea";
     public static final String TASK_DELETE_ERROR_MESSAGE = "No se pudo eliminar la tarea";
     public static final String TASK_STATUS_INVALID_MESSAGE = "El estado de la tarea no es válido";
+    public static final String TASK_USER_INVALID_MESSAGE = "El usuario de la tarea no es válido";
 
     //AppUser códigos y mensajes de error
     public static final int APPUSER_NOT_FOUND_CODE = 200;
