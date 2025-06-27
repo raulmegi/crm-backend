@@ -74,4 +74,7 @@ public class GeneralConstants {
 
     public static final String GENERAL_ERROR_MESSAGE = "Error inesperado en el servidor";
     public static final String BD_ERROR_MESSAGE = "Error de conexión a base de datos";
+
+    public static final int JSON_PROCESSING_ERROR_CODE = 500;
+    public static final String JSON_PROCESSING_ERROR_MESSAGE = "Error al serializar los datos del usuario entrante";
 }

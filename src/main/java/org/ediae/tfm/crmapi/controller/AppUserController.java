@@ -1,33 +1,71 @@
 package org.ediae.tfm.crmapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
+import org.ediae.tfm.crmapi.constant.GeneralConstants;
+import org.ediae.tfm.crmapi.security.JwtService;
 import org.ediae.tfm.crmapi.dto.LoginRequest;
 import org.ediae.tfm.crmapi.entity.AppUser;
 import org.ediae.tfm.crmapi.exception.GeneralException;
-import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/appUser")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AppUserController {
 
     @Autowired
     private iAppUserService appUserService;
+    @Autowired
+    private JwtService jwtService;
 
-    @PostMapping("/crearAppUser")
-    public ModelMap createAppUser(@RequestBody AppUser appUser) {
+
+    @PostMapping("/registro")
+    public ResponseEntity<ModelMap> registerAppUser(@RequestBody AppUser appUser) {
         try {
-            return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.createAppUser(appUser));
+            // Log incoming data before returning
+            System.out.println("[DEBUG] Incoming appUser: " + new ObjectMapper().writeValueAsString(appUser));
+
+            ModelMap successBody = GeneralUtilsController.crearRespuestaModelMapOk(
+                    appUserService.registerAppUser(appUser)
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(successBody); // 201 Created
         } catch (GeneralException genEx) {
-            return GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
+    @PostMapping("/crearAppUser")
+    public ResponseEntity<ModelMap> createAppUser(@RequestBody AppUser appUser) {
+        try {
+            // Log incoming data before returning
+            System.out.println("[DEBUG] Incoming appUser: " + new ObjectMapper().writeValueAsString(appUser));
+
+            ModelMap successBody = GeneralUtilsController.crearRespuestaModelMapOk(
+                    appUserService.createAppUser(appUser)
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(successBody); // 201 Created
+        } catch (GeneralException genEx) {
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(genEx);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+        } catch (JsonProcessingException e) {
+            ModelMap errorBody = GeneralUtilsController.crearRespuestaModelMapError(
+                    new GeneralException(GeneralConstants.JSON_PROCESSING_ERROR_CODE, GeneralConstants.JSON_PROCESSING_ERROR_MESSAGE)
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
+    }
+        }
 
     @GetMapping("/obtenerTodosAppUser")
     public ModelMap getAllAppUsers() {
@@ -87,14 +125,39 @@ public class AppUserController {
     }
 
     @PostMapping("/login")
-    public ModelMap login(@RequestBody LoginRequest loginRequest) {
+    public ModelMap login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
             AppUser appUser = appUserService.login(loginRequest.getEmail(), loginRequest.getPassword());
+            String token = jwtService.generateToken(appUser);
+            ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                    .httpOnly(true)
+                    .secure(false) // set to true when using HTTPS
+                    .path("/")
+                    .maxAge(86400)
+                    .sameSite("Lax")
+                    .build();
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
             ModelMap modelMap = GeneralUtilsController.crearRespuestaModelMapOk(appUser);
-            modelMap.put("loginMessage", "User ID " + appUser.getId() + " has logged in successfully");
+            modelMap.put("loginMessage", "User ID " + appUser.getId() + " ha iniciado la sesión con éxito");
             return modelMap;
         } catch(GeneralException genEx){
             return GeneralUtilsController.crearRespuestaModelMapError(genEx);
         }
     }
+    @PostMapping("/logout")
+    public ModelMap logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Strict")
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return GeneralUtilsController.crearRespuestaModelMapOk("Sesión cerrada con éxito");
+    }
+
 }

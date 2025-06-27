@@ -2,8 +2,10 @@ package org.ediae.tfm.crmapi.service.impl;
 
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.entity.AppUser;
+import org.ediae.tfm.crmapi.entity.Role;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.repository.AppUserRepository;
+import org.ediae.tfm.crmapi.repository.RoleRepository;
 import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,9 @@ public class AppUserServiceImpl implements iAppUserService {
     private AppUserRepository appUserRepository;
 
     @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -27,7 +32,30 @@ public class AppUserServiceImpl implements iAppUserService {
                     GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
                     GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
         }
+        try{
+            Role role = roleRepository.findById(appUser.getRole().getId())
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+            appUser.setRole(role);
+            appUser.setId(null);
+            appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+            return appUserRepository.save(appUser);
+
+        } catch (Exception ex) {
+            throw new GeneralException(
+                    GeneralConstants.GENERAL_ERROR_CODE,
+                    GeneralConstants.GENERAL_ERROR_MESSAGE);
+        }
+    }
+    @Override
+    public AppUser registerAppUser(AppUser appUser) throws GeneralException {
+        if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
+                    GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+        }
             try{
+                Role defaultRole = roleRepository.findById(1L).orElseThrow(() -> new RuntimeException("Role not found"));
+                appUser.setRole(defaultRole);
                 appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
                 return appUserRepository.save(appUser);
 
@@ -102,6 +130,9 @@ public class AppUserServiceImpl implements iAppUserService {
     @Override
     public AppUser updateAppUser(AppUser appUser) throws GeneralException {
         try {
+            Role role = roleRepository.findById(appUser.getRole().getId())
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+            appUser.setRole(role);
             return appUserRepository.save(appUser);
         } catch (Exception ex) {
             throw new GeneralException(

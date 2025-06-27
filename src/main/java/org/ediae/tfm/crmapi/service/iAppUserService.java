@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface iAppUserService {
     AppUser createAppUser(AppUser appUser) throws GeneralException;
+    AppUser registerAppUser(AppUser appUser) throws GeneralException;
     List<AppUser> findAllAppUsers() throws GeneralException;
     Optional<AppUser> findAppUserById(Long id) throws GeneralException;
     AppUser updateAppUser (AppUser appUser) throws GeneralException;
