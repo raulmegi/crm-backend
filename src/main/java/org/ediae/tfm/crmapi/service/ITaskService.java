@@ -1,5 +1,6 @@
 package org.ediae.tfm.crmapi.service;
 
+import org.ediae.tfm.crmapi.entity.AppUser;
 import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 
@@ -13,4 +14,5 @@ public interface ITaskService {
     Task update(Task task) throws GeneralException;
     Boolean delete(Long id) throws GeneralException;
     List<Task> findByStatus(Task.Status status) throws GeneralException;
+    List<Task> findByUser(Optional<AppUser> user) throws GeneralException;
 }
