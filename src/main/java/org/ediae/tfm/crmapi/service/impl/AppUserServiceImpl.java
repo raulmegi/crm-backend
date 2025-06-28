@@ -133,6 +133,7 @@ public class AppUserServiceImpl implements iAppUserService {
             Role role = roleRepository.findById(appUser.getRole().getId())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
             appUser.setRole(role);
+            appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             return appUserRepository.save(appUser);
         } catch (Exception ex) {
             throw new GeneralException(
