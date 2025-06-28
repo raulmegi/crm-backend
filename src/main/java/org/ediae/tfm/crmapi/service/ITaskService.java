@@ -14,5 +14,7 @@ public interface ITaskService {
     Task update(Task task) throws GeneralException;
     Boolean delete(Long id) throws GeneralException;
     List<Task> findByStatus(Task.Status status) throws GeneralException;
-    List<Task> findByUser(Optional<AppUser> user) throws GeneralException;
+    List<Task> findByUserId(Long userId) throws GeneralException;
+    List<Task> findByCustomerId(Long customerId) throws GeneralException;
+
 }
