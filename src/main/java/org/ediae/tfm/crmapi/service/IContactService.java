@@ -8,13 +8,10 @@ import java.util.List;
 
 
 public interface IContactService {
-//    List<Contact> getContacts(String user, String password) throws GeneralException, NoValidUserException;
-//    Contact createContact(String user, String password, Contact contact) throws GeneralException, NoValidUserException;
-//    Contact editContact(String user, String password, Contact contact) throws GeneralException, NoValidUserException;
-//    Boolean deleteContact(String user, String password, Long id) throws GeneralException, NoValidUserException;
-List<Contact> getContacts() throws GeneralException;
+
+    List<Contact> getContacts() throws GeneralException;
     Contact createContact(Contact contact) throws GeneralException;
     Contact editContact(Contact contact) throws GeneralException;
     Boolean deleteContact(Long id) throws GeneralException, NoValidUserException;
-
+    List<Contact> getContactsByName(String name) throws GeneralException;
 }
