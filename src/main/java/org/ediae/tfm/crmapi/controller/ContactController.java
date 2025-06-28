@@ -4,8 +4,11 @@ import org.ediae.tfm.crmapi.entity.Contact;
 import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.service.IContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,7 +19,7 @@ public class ContactController {
 
 
     @GetMapping ("/get")
-    public ModelMap getContacts() throws GeneralException {
+    public ModelMap getContacts() {
     try {
         return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.getContacts());
     } catch (Exception ex) {
@@ -24,10 +27,17 @@ public class ContactController {
     }
     }
 
-
+    @GetMapping("/findByName")
+    public ModelMap getContactsByName(@RequestParam String name) {
+        try {
+            return GeneralControllerUtils.crearRespuestaModelMapOk((contactService.getContactsByName(name)));
+        } catch (Exception ex) {
+            return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+        }
+    }
 
     @PostMapping("/create")
-    public ModelMap createContact(@RequestBody Contact contact) throws GeneralException{
+    public ModelMap createContact(@RequestBody Contact contact) {
         try {
             return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.createContact(contact));
         } catch (Exception ex) {
@@ -37,7 +47,7 @@ public class ContactController {
 
 
     @PutMapping("/edit")
-    public ModelMap editContact( @RequestBody Contact contact) throws GeneralException{
+    public ModelMap editContact( @RequestBody Contact contact){
         try {
             return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.editContact(contact));
         } catch (Exception ex) {
@@ -55,5 +65,4 @@ public class ContactController {
             return GeneralControllerUtils.crearRespuestaModelMapError(ex);
         }
     }
-
 }
