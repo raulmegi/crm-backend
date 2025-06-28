@@ -82,23 +82,22 @@ public class TaskController {
     @GetMapping("/usuario/{userId}")
     public ModelMap findByUser(@PathVariable Long userId) {
         try {
-            AppUser user = appUserService
-                    .findAppUserById(userId)                     // tu método
-                    .orElseThrow(() -> new GeneralException(
-                            GeneralConstants.APPUSER_NOT_FOUND_CODE,
-                            GeneralConstants.APPUSER_NOT_FOUND_MESSAGE));
-
-            // 2) Busca las tareas de ese usuario
-            List<Task> tareas = taskService.findByUser(Optional.ofNullable(user));
-
-            // 3) Devuelve OK con la lista en data
+            // el servicio subyacente lanza GeneralException si no encuentra
+            List<Task> tareas = taskService.findByUserId(userId);
             return GeneralUtilsController.crearRespuestaModelMapOk(tareas);
-
         } catch (GeneralException ge) {
-            // Si el usuario no existe o falla tu excepción controlada
+            return GeneralUtilsController.crearRespuestaModelMapError(ge);
+        }
+    }
+
+    @GetMapping("/cliente/{customerId}")
+    public ModelMap findByCustomer(@PathVariable Long customerId) {
+        try {
+            List<Task> tareas = taskService.findByCustomerId(customerId);
+            return GeneralUtilsController.crearRespuestaModelMapOk(tareas);
+        } catch (GeneralException ge) {
             return GeneralUtilsController.crearRespuestaModelMapError(ge);
         } catch (Exception ex) {
-            // Cualquier otro error
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }

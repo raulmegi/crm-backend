@@ -32,6 +32,8 @@ public class SecurityConfig {
 //                .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers(
 //                                "/appUser/login",
+//                                "/appUser/obtenerTodosAppUser",
+//                                "/appUser/crearAppUser",
 //                                //"/appUser/obtenerTodosAppUser",
 //                                "/appUser/registro",
 //                                "/appUser/logout",
