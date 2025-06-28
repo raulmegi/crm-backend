@@ -34,10 +34,13 @@ public class SecurityConfig {
 //                                "/appUser/login",
 //                                "/appUser/obtenerTodosAppUser",
 //                                "/appUser/crearAppUser",
+//                                //"/appUser/obtenerTodosAppUser",
+//                                "/appUser/registro",
 //                                "/appUser/logout",
 //                                "/v3/api-docs/**",
 //                                "/swagger-ui/**",
 //                                "/swagger-ui.html"
+//
 //                        ).permitAll()
 //                        .anyRequest().authenticated()
 //                )
