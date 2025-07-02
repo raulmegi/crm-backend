@@ -104,17 +104,20 @@ public class AppUserController {
         }
     }
 
-    @PutMapping("/actualizarAppUser/{id}")  //PETA SI NO ACTUALIZAS ALGO
-    public ModelMap updateClient(@PathVariable Long id, @RequestBody AppUser appUser) {
+    @PutMapping("/actualizarAppUser/{id}")
+    public ModelMap updateAppUser(@PathVariable Long id, @RequestBody AppUser appUser) {
         appUser.setId(id);
         try {
             return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.updateAppUser(appUser));
-        } catch (Exception ex) {
+        } catch (GeneralException ex) {
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(new GeneralException(
+                    GeneralConstants.APPUSER_UPDATE_ERROR_CODE,
+                    GeneralConstants.APPUSER_UPDATE_ERROR_MESSAGE
+            ));
         }
     }
-
-    // @PutMapping("/cambiarContrasena") -algo más complicado por lo visto
 
     @DeleteMapping("eliminarAppUser/{id}")
     public ModelMap deleteAppUserById(@PathVariable Long id) {

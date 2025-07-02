@@ -54,6 +54,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             System.out.println("[JwtAuthFilter] No JWT cookie found.");
         }
 
+
         // 2. Validate token
         if (token != null && jwtService.validateToken(token)) {
             System.out.println("[JwtAuthFilter] Token is valid.");
