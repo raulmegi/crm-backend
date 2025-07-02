@@ -129,7 +129,11 @@ public class AppUserServiceImpl implements iAppUserService {
 
     @Override
     public AppUser updateAppUser(AppUser appUser) throws GeneralException {
-        try {
+        if (appUserRepository.findAppUserByEmail(appUser.getEmail()).isPresent()) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
+                    GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+        }try {
             Role role = roleRepository.findById(appUser.getRole().getId())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
             appUser.setRole(role);

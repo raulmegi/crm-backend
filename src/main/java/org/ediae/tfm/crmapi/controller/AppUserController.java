@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -145,6 +146,19 @@ public class AppUserController {
             return GeneralUtilsController.crearRespuestaModelMapError(genEx);
         }
     }
+    @GetMapping("/me")
+    public ModelMap getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof AppUser user) {
+            return GeneralUtilsController.crearRespuestaModelMapOk(user);
+        } else {
+            return GeneralUtilsController.crearRespuestaModelMapError(new Exception("Usuario no autenticado"));
+        }
+    }
+
+
+
     @PostMapping("/logout")
     public ModelMap logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("jwt", "")
