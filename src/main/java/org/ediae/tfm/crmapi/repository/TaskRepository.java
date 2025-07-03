@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TaskRepository extends JpaRepository <Task, Long> {
     List<Task> findByStatus(Task.Status status);
-    List<Task> findByUser(AppUser user);
+    List<Task> findByUser(Optional<AppUser> user);
     List<Task> findByCustomer(Customer customer);
 
     List<Task> findByStatusAndUserId(Task.Status status, Long userId);

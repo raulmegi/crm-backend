@@ -1,10 +1,15 @@
 package org.ediae.tfm.crmapi.service.impl;
 
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
+import org.ediae.tfm.crmapi.entity.AppUser;
+import org.ediae.tfm.crmapi.entity.Customer;
 import org.ediae.tfm.crmapi.entity.Task;
 import org.ediae.tfm.crmapi.exception.GeneralException;
+import org.ediae.tfm.crmapi.repository.AppUserRepository;
 import org.ediae.tfm.crmapi.repository.TaskRepository;
+import org.ediae.tfm.crmapi.service.ICustomerService;
 import org.ediae.tfm.crmapi.service.ITaskService;
+import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +18,13 @@ import java.util.Optional;
 public class TaskServiceImpl implements ITaskService {
 
     private final TaskRepository taskRepository;
+    private final iAppUserService appUserService;
+    private final ICustomerService customerService;
 
-    public TaskServiceImpl(TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, iAppUserService appUserService, ICustomerService customerService) {
         this.taskRepository = taskRepository;
+        this.appUserService = appUserService;
+        this.customerService = customerService;
     }
 
     public Task create(Task task) throws GeneralException {
@@ -104,5 +113,31 @@ public class TaskServiceImpl implements ITaskService {
                     GeneralConstants.TASK_STATUS_INVALID_MESSAGE
             );
         }
+    }
+
+    public List<Task> findByUserId(Long userId) throws GeneralException {
+        AppUser user = appUserService
+                .findAppUserById(userId)
+                .orElseThrow(() -> new GeneralException(
+                        GeneralConstants.APPUSER_NOT_FOUND_CODE,
+                        GeneralConstants.APPUSER_NOT_FOUND_MESSAGE
+                ));
+
+        try {
+            return taskRepository.findByUser(Optional.ofNullable(user));
+        } catch (Exception e) {
+            throw new GeneralException(
+                    GeneralConstants.TASK_USER_INVALID_CODE,
+                    GeneralConstants.TASK_USER_INVALID_MESSAGE
+
+            );
+        }
+    }
+
+    public List<Task> findByCustomerId(Long customerId) throws GeneralException {
+
+        Customer customer = customerService.findCustomerById(customerId);
+
+        return taskRepository.findByCustomer(customer);
     }
 }

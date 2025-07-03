@@ -1,21 +1,28 @@
 package org.ediae.tfm.crmapi.controller;
 
+import org.ediae.tfm.crmapi.constant.GeneralConstants;
+import org.ediae.tfm.crmapi.entity.AppUser;
 import org.ediae.tfm.crmapi.entity.Task;
+import org.ediae.tfm.crmapi.exception.GeneralException;
 import org.ediae.tfm.crmapi.service.ITaskService;
+import org.ediae.tfm.crmapi.service.iAppUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
-    private final ITaskService taskService;
 
-    public TaskController(ITaskService taskService) {
+    private final ITaskService taskService;
+    private final iAppUserService appUserService;
+    public TaskController(ITaskService taskService, iAppUserService appUserService) {
         this.taskService = taskService;
+        this.appUserService = appUserService;
     }
 
     @PostMapping("/crearTarea")
@@ -72,5 +79,29 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/usuario/{userId}")
+    public ModelMap findByUser(@PathVariable Long userId) {
+        try {
+            // el servicio subyacente lanza GeneralException si no encuentra
+            List<Task> tareas = taskService.findByUserId(userId);
+            return GeneralUtilsController.crearRespuestaModelMapOk(tareas);
+        } catch (GeneralException ge) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ge);
+        }
+    }
 
+    @GetMapping("/cliente/{customerId}")
+    public ModelMap findByCustomer(@PathVariable Long customerId) {
+        try {
+            List<Task> tareas = taskService.findByCustomerId(customerId);
+            return GeneralUtilsController.crearRespuestaModelMapOk(tareas);
+        } catch (GeneralException ge) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ge);
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        }
+    }
 }
+
+
+

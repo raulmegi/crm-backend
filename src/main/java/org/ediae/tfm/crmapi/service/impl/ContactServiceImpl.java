@@ -8,7 +8,6 @@ import org.ediae.tfm.crmapi.service.IContactService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContactServiceImpl implements IContactService {
@@ -42,23 +41,6 @@ public class ContactServiceImpl implements IContactService {
         }
     }
 
-    public Contact findById(Long id) throws GeneralException{
-        try {
-            Optional<Contact> optionalContact= contactRepository.findById(id);
-            if(optionalContact.isPresent()) {
-                return optionalContact.get();
-            } else {
-                throw new GeneralException(GeneralConstants.CONTACT_NOT_FOUND_CODE, GeneralConstants.CONTACT_NOT_FOUND_MESSAGE);
-            }
-        } catch (GeneralException genEx) {
-            throw genEx;
-        } catch (Exception ex) {
-            throw new GeneralException(
-                    GeneralConstants.GENERAL_ERROR_CODE,
-                    GeneralConstants.GENERAL_ERROR_MESSAGE);
-        }
-
-    }
 
     @Override
     public Contact editContact(Contact contact) throws GeneralException {
@@ -99,6 +81,23 @@ public class ContactServiceImpl implements IContactService {
             );
         }
     }
+    @Override
+    public List<Contact> getContactsByName(String name) throws GeneralException{
+        try {
+            List<Contact> list= contactRepository.findByNameContainingIgnoreCase(name);
+            if(!list.isEmpty()){
+                return list;
+            } else {
+                throw new GeneralException(GeneralConstants.CONTACT_NOT_FOUND_CODE, GeneralConstants.CONTACT_NOT_FOUND_MESSAGE);
+            }
+        } catch (GeneralException genEx) {
+            throw genEx;
+        } catch (Exception ex) {
+            throw new GeneralException(
+                    GeneralConstants.GENERAL_ERROR_CODE,
+                    GeneralConstants.GENERAL_ERROR_MESSAGE);
+        }
     }
+}
 
 
