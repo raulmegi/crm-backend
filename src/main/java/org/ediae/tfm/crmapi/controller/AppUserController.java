@@ -2,6 +2,7 @@ package org.ediae.tfm.crmapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.security.JwtService;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,17 +105,20 @@ public class AppUserController {
         }
     }
 
-    @PutMapping("/actualizarAppUser/{id}")  //PETA SI NO ACTUALIZAS ALGO
-    public ModelMap updateClient(@PathVariable Long id, @RequestBody AppUser appUser) {
+    @PutMapping("/actualizarAppUser/{id}")
+    public ModelMap updateAppUser(@PathVariable Long id, @RequestBody AppUser appUser) {
         appUser.setId(id);
         try {
             return GeneralUtilsController.crearRespuestaModelMapOk(appUserService.updateAppUser(appUser));
-        } catch (Exception ex) {
+        } catch (GeneralException ex) {
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
+        } catch (Exception ex) {
+            return GeneralUtilsController.crearRespuestaModelMapError(new GeneralException(
+                    GeneralConstants.APPUSER_UPDATE_ERROR_CODE,
+                    GeneralConstants.APPUSER_UPDATE_ERROR_MESSAGE
+            ));
         }
     }
-
-    // @PutMapping("/cambiarContrasena") -algo más complicado por lo visto
 
     @DeleteMapping("eliminarAppUser/{id}")
     public ModelMap deleteAppUserById(@PathVariable Long id) {
@@ -145,6 +150,17 @@ public class AppUserController {
             return GeneralUtilsController.crearRespuestaModelMapError(genEx);
         }
     }
+    @GetMapping("/me")
+    public ModelMap getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof AppUser user) {
+            return GeneralUtilsController.crearRespuestaModelMapOk(user);
+        } else {
+            return GeneralUtilsController.crearRespuestaModelMapError(new Exception("Usuario no autenticado"));
+        }
+    }
+
     @PostMapping("/logout")
     public ModelMap logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("jwt", "")
@@ -159,5 +175,8 @@ public class AppUserController {
 
         return GeneralUtilsController.crearRespuestaModelMapOk("Sesión cerrada con éxito");
     }
-
+    @GetMapping("/appUser/validate-session")
+    public ResponseEntity<?> validateSession(HttpServletRequest request) {
+        return ResponseEntity.ok().build(); // Spring Security + JwtAuthFilter will block this if JWT is invalid
+    }
 }

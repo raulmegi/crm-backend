@@ -17,11 +17,9 @@ import java.util.Optional;
 public class AppUserServiceImpl implements iAppUserService {
 
     @Autowired
-    private AppUserRepository appUserRepository;
-
-    @Autowired
     RoleRepository roleRepository;
-
+    @Autowired
+    private AppUserRepository appUserRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -53,11 +51,11 @@ public class AppUserServiceImpl implements iAppUserService {
                     GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
                     GeneralConstants.APPUSER_CREATION_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
         }
-            try{
-                Role defaultRole = roleRepository.findById(1L).orElseThrow(() -> new RuntimeException("Role not found"));
-                appUser.setRole(defaultRole);
-                appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-                return appUserRepository.save(appUser);
+        try{
+            Role defaultRole = roleRepository.findById(1L).orElseThrow(() -> new RuntimeException("Role not found"));
+            appUser.setRole(defaultRole);
+            appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+            return appUserRepository.save(appUser);
 
         } catch (Exception ex) {
             throw new GeneralException(
@@ -91,12 +89,12 @@ public class AppUserServiceImpl implements iAppUserService {
     public AppUser findAppUserByEmail(String email) throws GeneralException {
         try {
             Optional<AppUser> optionalAppUser = appUserRepository.findAppUserByEmail(email);
-             if(optionalAppUser.isPresent()) {
+            if(optionalAppUser.isPresent()) {
                 return optionalAppUser.get();
-             } else {
+            } else {
                 throw new GeneralException(
-                    GeneralConstants.APPUSER_EMAIL_NOT_FOUND_CODE,
-                    GeneralConstants.APPUSER_EMAIL_NOT_FOUND_MESSAGE);
+                        GeneralConstants.APPUSER_EMAIL_NOT_FOUND_CODE,
+                        GeneralConstants.APPUSER_EMAIL_NOT_FOUND_MESSAGE);
             }
         } catch (GeneralException genEx) {
             throw genEx;
@@ -113,11 +111,11 @@ public class AppUserServiceImpl implements iAppUserService {
             List<AppUser> appUsers = appUserRepository.findByNameContainingIgnoreCase(name);
             if(!appUsers.isEmpty()) {
                 return appUsers;
-        } else {
+            } else {
                 throw new GeneralException(
-                    GeneralConstants.APPUSER_NAME_SEARCH_ERROR_CODE,
-                    GeneralConstants.APPUSER_NAME_SEARCH_ERROR_MESSAGE);
-        }
+                        GeneralConstants.APPUSER_NAME_SEARCH_ERROR_CODE,
+                        GeneralConstants.APPUSER_NAME_SEARCH_ERROR_MESSAGE);
+            }
         } catch (GeneralException genEx) {
             throw genEx;
         } catch (Exception ex) {
@@ -129,7 +127,12 @@ public class AppUserServiceImpl implements iAppUserService {
 
     @Override
     public AppUser updateAppUser(AppUser appUser) throws GeneralException {
-        try {
+        Optional<AppUser> existingUserOpt = appUserRepository.findAppUserByEmail(appUser.getEmail());
+        if (existingUserOpt.isPresent() && !existingUserOpt.get().getId().equals(appUser.getId())) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_CODE,
+                    GeneralConstants.APPUSER_UPDATE_ERROR_MESSAGE + ". " + GeneralConstants.APPUSER_EMAIL_IN_USE_ERROR_MESSAGE);
+        }try {
             Role role = roleRepository.findById(appUser.getRole().getId())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
             appUser.setRole(role);
@@ -142,22 +145,22 @@ public class AppUserServiceImpl implements iAppUserService {
         }
     }
     @Override
-        public boolean deleteAppUserById(Long id) throws GeneralException {
-            if (!appUserRepository.existsById(id)) {
-                throw new GeneralException(
-                        GeneralConstants.APPUSER_NOT_FOUND_CODE,
-                        GeneralConstants.APPUSER_NOT_FOUND_MESSAGE);
-            }
-            else try {
-                appUserRepository.deleteById(id);
-                return true;
-            } catch (Exception e) {
-                throw new GeneralException(
-                        GeneralConstants.APPUSER_DELETE_ERROR_CODE,
-                        GeneralConstants.APPUSER_DELETE_ERROR_MESSAGE
-                );
-            }
+    public boolean deleteAppUserById(Long id) throws GeneralException {
+        if (!appUserRepository.existsById(id)) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_NOT_FOUND_CODE,
+                    GeneralConstants.APPUSER_NOT_FOUND_MESSAGE);
         }
+        else try {
+            appUserRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            throw new GeneralException(
+                    GeneralConstants.APPUSER_DELETE_ERROR_CODE,
+                    GeneralConstants.APPUSER_DELETE_ERROR_MESSAGE
+            );
+        }
+    }
 
     @Override
     public AppUser login(String email, String password) throws GeneralException {
