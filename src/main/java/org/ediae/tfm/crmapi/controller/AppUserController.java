@@ -2,6 +2,7 @@ package org.ediae.tfm.crmapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.ediae.tfm.crmapi.constant.GeneralConstants;
 import org.ediae.tfm.crmapi.security.JwtService;
@@ -176,5 +177,8 @@ public class AppUserController {
 
         return GeneralUtilsController.crearRespuestaModelMapOk("Sesión cerrada con éxito");
     }
-
+    @GetMapping("/appUser/validate-session")
+    public ResponseEntity<?> validateSession(HttpServletRequest request) {
+        return ResponseEntity.ok().build(); // Spring Security + JwtAuthFilter will block this if JWT is invalid
+    }
 }
