@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="246761c6-ea31-4d68-9ae4-2b7f5b128598" name="Changes" comment="MODIFICACIONES PARA CREACION DOCKER.&#10;&#10;CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="ElWillys &lt;55439170+elwillys@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/customer-crud" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;raulmegi&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ElWillys/crm-backend&quot;,
+    &quot;accountId&quot;: &quot;58e460c3-d768-497b-8f94-7b6cc73108f1&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2ywjL6FHgslaqUE3JTbctku3NWg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CrmapiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crmapi [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crmapi [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crmapi [spring-boot:run...].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/docker-deploy&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/raulm/OneDrive/Escritorio/MASTER/TFM/dev/backend/crm-backend&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.49310344&quot;
+  }
+}</component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn spring-boot:run -Dspring-boot.run.profiles=dev " />
+      <command value="reload project" />
+      <command value="mvn clean" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="CrmapiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ediae.tfm.crmapi.CrmapiApplication" />
+      <module name="crmapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ediae.tfm.crmapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CrmapiApplication" />
+        <item itemvalue="Application.CrmapiApplication" />
+        <item itemvalue="Application.CrmapiApplication" />
+        <item itemvalue="Application.CrmapiApplication" />
+        <item itemvalue="Application.CrmapiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="246761c6-ea31-4d68-9ae4-2b7f5b128598" name="Changes" comment="" />
+      <created>1750752470416</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750752470416</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Cross origin añadido. Cambio de void a boolean en deleteCustomer.">
+      <option name="closed" value="true" />
+      <created>1750755997900</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750755997900</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Cross origin añadido. Cambio de void a boolean en deleteCustomer.">
+      <option name="closed" value="true" />
+      <created>1750756487120</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750756487120</updated>
+    </task>
+    <task id="LOCAL-00003" summary="ModelMap y control de errores implementados en customer.">
+      <option name="closed" value="true" />
+      <created>1750871803051</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750871803051</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge pull request #13 from ElWillys/feature/arreglar-cosas&#10;&#10;añadido brand a tareas">
+      <option name="closed" value="true" />
+      <created>1750872145532</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750872145532</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Configuracion de archivos .yml para poder generar imagenes en Docker (despliegue).">
+      <option name="closed" value="true" />
+      <created>1751371968294</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751371968294</updated>
+    </task>
+    <task id="LOCAL-00006" summary="CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db">
+      <option name="closed" value="true" />
+      <created>1751385749953</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751385749953</updated>
+    </task>
+    <task id="LOCAL-00007" summary="MODIFICACIONES PARA CREACION DOCKER.&#10;&#10;CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db.">
+      <option name="closed" value="true" />
+      <created>1751615223780</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751615223780</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cross origin añadido. Cambio de void a boolean en deleteCustomer." />
+    <MESSAGE value="ModelMap y control de errores implementados en customer." />
+    <MESSAGE value="Merge pull request #13 from ElWillys/feature/arreglar-cosas&#10;&#10;añadido brand a tareas" />
+    <MESSAGE value="Configuracion de archivos .yml para poder generar imagenes en Docker (despliegue)." />
+    <MESSAGE value="CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db" />
+    <MESSAGE value="MODIFICACIONES PARA CREACION DOCKER.&#10;&#10;CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db." />
+    <option name="LAST_COMMIT_MESSAGE" value="MODIFICACIONES PARA CREACION DOCKER.&#10;&#10;CAMBIO EN EL ARCHIVO APPLICATION.YML. REESTABLECIDO EL PUERTO DE BASE DE DATOS. &#10;PARA DESARROLLAR EN LOCAL USAR: &#10;spring:&#10;  datasource:&#10;    url: jdbc:mysql://localhost:3306/crm_db." />
+  </component>
+</project>
