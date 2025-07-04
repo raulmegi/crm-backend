@@ -24,41 +24,41 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .cors(cors -> {}) // <== Enables CORS using your WebMvcConfigurer
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(
-//                                "/appUser/login",
-//                                "/appUser/obtenerTodosAppUser",
-//                                "/appUser/crearAppUser",
-//                                //"/appUser/obtenerTodosAppUser",
-//                                "/appUser/registro",
-//                                "/appUser/logout",
-//                                "/v3/api-docs/**",
-//                                "/swagger-ui/**",
-//                                "/swagger-ui.html"
-//
-//                        ).permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors(cors -> {}) // Enables CORS using your WebMvcConfigurer
+                .cors(cors -> {}) // <== Enables CORS using your WebMvcConfigurer
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Allow all requests
+                        .requestMatchers(
+                                "/appUser/login",
+                                "/appUser/obtenerTodosAppUser",
+                                "/appUser/crearAppUser",
+                                //"/appUser/obtenerTodosAppUser",
+                                "/appUser/registro",
+                                "/appUser/logout",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
-                // TEMPORARILY DISABLED: JWT filter
-                // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build(); // ✅ Don't forget to build the chain
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .cors(cors -> {}) // Enables CORS using your WebMvcConfigurer
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .anyRequest().permitAll() // Allow all requests
+//                )
+//                // TEMPORARILY DISABLED: JWT filter
+//                // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build(); // ✅ Don't forget to build the chain
+//    }
 
 }
 
