@@ -1,8 +1,10 @@
 package org.ediae.tfm.crmapi.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Chain {
 
     @Id
@@ -12,19 +14,6 @@ public class Chain {
     @Column(nullable = false)
     private String name;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
