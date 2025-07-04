@@ -50,6 +50,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // 1. Extract token from cookies
         String token = extractJwtFromCookies(request);
         System.out.println("[JwtAuthFilter] Token received: " + token);
+        if (token == null) {
+            System.out.println("[JwtAuthFilter] No JWT cookie found.");
+        }
+
 
         // 2. Validate token
         if (token != null && jwtService.validateToken(token)) {
