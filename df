@@ -1,0 +1,44 @@
+[33mb676257[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: checkout: moving from feature/AppUser to main
+[33md7f0a75[m[33m ([m[1;31morigin/feature/AppUser[m[33m, [m[1;32mfeature/AppUser[m[33m)[m HEAD@{1}: commit: error handling fixes
+[33m6a29327[m HEAD@{2}: pull origin main: Merge made by the 'ort' strategy.
+[33md3557f4[m HEAD@{3}: commit: bugfixes
+[33m1987d48[m HEAD@{4}: commit: error handling fixes
+[33m83075f7[m HEAD@{5}: commit: Cookie, token + logout
+[33m7f7e924[m HEAD@{6}: checkout: moving from main to feature/AppUser
+[33mb676257[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{7}: merge feature/AppUser: Merge made by the 'ort' strategy.
+[33m92a2e68[m HEAD@{8}: pull origin main: Fast-forward
+[33m1577592[m HEAD@{9}: checkout: moving from feature/AppUser to main
+[33m7f7e924[m HEAD@{10}: commit: updateAppUser pw hashing
+[33m18feb60[m HEAD@{11}: commit: arreglo de registro
+[33m29a5c3a[m HEAD@{12}: commit: protected routes
+[33m5f50abd[m HEAD@{13}: pull origin main: Merge made by the 'ort' strategy.
+[33m92a9e08[m HEAD@{14}: commit: crude role CRUD, small tweaks
+[33m991e213[m HEAD@{15}: commit: role implementation
+[33mccc2e02[m HEAD@{16}: commit: Cookie, token + logout
+[33m1577592[m HEAD@{17}: checkout: moving from main to feature/AppUser
+[33m1577592[m HEAD@{18}: merge feature/AppUser: Fast-forward
+[33m8d3ea7b[m HEAD@{19}: checkout: moving from feature/AppUser to main
+[33m1577592[m HEAD@{20}: commit: security and password encryption update
+[33m8d3ea7b[m HEAD@{21}: checkout: moving from main to feature/AppUser
+[33m8d3ea7b[m HEAD@{22}: merge feature/appuser: Fast-forward
+[33m2b517b6[m HEAD@{23}: checkout: moving from feature/AppUser to main
+[33m8d3ea7b[m HEAD@{24}: commit: Cors config
+[33m2b517b6[m HEAD@{25}: checkout: moving from main to feature/AppUser
+[33m2b517b6[m HEAD@{26}: merge feature/AppUser: Fast-forward
+[33m8e8169a[m HEAD@{27}: pull: Fast-forward
+[33mfcbcb69[m HEAD@{28}: checkout: moving from feature/AppUser to main
+[33m2b517b6[m HEAD@{29}: commit: bug fixes
+[33m397a029[m HEAD@{30}: commit: cambio de metodos a ModelMap
+[33m1127195[m HEAD@{31}: commit: ModelMap crearRespuestaModelMapError(GeneralException genEx)
+[33maaf90fe[m HEAD@{32}: commit: ModelMap crearRespuestaModelMapError(GeneralException genEx)
+[33m83be49c[m HEAD@{33}: commit: "error codes and messages + service methods update with error handling"
+[33m1b64e88[m HEAD@{34}: pull origin main: Merge made by the 'ort' strategy.
+[33mc5d3e6e[m HEAD@{35}: checkout: moving from feature/AppUser to feature/AppUser
+[33mc5d3e6e[m HEAD@{36}: commit: obtenerAppUserByName method
+[33m03a0f8c[m HEAD@{37}: commit: Login
+[33m3d83c21[m HEAD@{38}: commit: AppUser CRUD básico, create, update, findAll, findById, deleteById
+[33mfcbcb69[m HEAD@{39}: checkout: moving from main to feature/AppUser
+[33mfcbcb69[m HEAD@{40}: pull origin main: Fast-forward
+[33md4ea151[m HEAD@{41}: checkout: moving from main to main
+[33md4ea151[m HEAD@{42}: checkout: moving from main to main
+[33md4ea151[m HEAD@{43}: clone: from https://github.com/ElWillys/crm-backend
