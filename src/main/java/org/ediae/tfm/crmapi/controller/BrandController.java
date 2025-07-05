@@ -53,7 +53,7 @@ public class BrandController {
     @PutMapping("/actualizarMarca/{id}")
     public ModelMap updateBrand(@PathVariable Long id, @RequestBody Brand brand) {
         try {
-            brand.setId(id); // Asegura que el ID sea correcto antes de actualizar
+            brand.setId(id);
             return GeneralUtilsController.crearRespuestaModelMapOk(brandService.updateBrand(brand));
         } catch (Exception ex) {
             return GeneralUtilsController.crearRespuestaModelMapError(ex);
