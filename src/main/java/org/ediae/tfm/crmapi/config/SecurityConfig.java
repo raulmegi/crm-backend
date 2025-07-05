@@ -27,16 +27,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-             .cors(cors -> {}) // <== Enables CORS using your WebMvcConfigurer
+             .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/appUser/login",
                                 "/appUser/registro",
-                                "/appUser/logout",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/appUser/logout"
+//                                "/v3/api-docs/**",
+//                                "/swagger-ui/**",
+//                                "/swagger-ui.html"
 
                         ).permitAll()
                         .anyRequest().authenticated()
