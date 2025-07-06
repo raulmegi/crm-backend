@@ -21,27 +21,27 @@ public class ContactController {
     @GetMapping ("/get")
     public ModelMap getContacts() {
     try {
-        return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.getContacts());
+        return GeneralUtilsController.crearRespuestaModelMapOk(contactService.getContacts());
     } catch (Exception ex) {
-        return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+        return GeneralUtilsController.crearRespuestaModelMapError(ex);
     }
     }
 
     @GetMapping("/findByName")
     public ModelMap getContactsByName(@RequestParam String name) {
         try {
-            return GeneralControllerUtils.crearRespuestaModelMapOk((contactService.getContactsByName(name)));
+            return GeneralUtilsController.crearRespuestaModelMapOk((contactService.getContactsByName(name)));
         } catch (Exception ex) {
-            return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }
 
     @PostMapping("/create")
     public ModelMap createContact(@RequestBody Contact contact) {
         try {
-            return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.createContact(contact));
+            return GeneralUtilsController.crearRespuestaModelMapOk(contactService.createContact(contact));
         } catch (Exception ex) {
-            return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }
 
@@ -49,9 +49,9 @@ public class ContactController {
     @PutMapping("/edit")
     public ModelMap editContact( @RequestBody Contact contact){
         try {
-            return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.editContact(contact));
+            return GeneralUtilsController.crearRespuestaModelMapOk(contactService.editContact(contact));
         } catch (Exception ex) {
-            return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }
 
@@ -60,9 +60,9 @@ public class ContactController {
     @DeleteMapping("/delete/{id}")
     public ModelMap deleteContact(@PathVariable Long id) {
         try {
-            return GeneralControllerUtils.crearRespuestaModelMapOk(contactService.deleteContact(id));
+            return GeneralUtilsController.crearRespuestaModelMapOk(contactService.deleteContact(id));
         } catch (Exception ex) {
-            return GeneralControllerUtils.crearRespuestaModelMapError(ex);
+            return GeneralUtilsController.crearRespuestaModelMapError(ex);
         }
     }
 }
