@@ -26,7 +26,6 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS256, signingKey)
                 .compact();
     }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
