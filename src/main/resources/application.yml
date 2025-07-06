@@ -23,10 +23,6 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-  security:
-    user:
-      name: root
-      password: "{noop}admin"
 jwt:
   secret: MyCookieJar123
 springdoc:
