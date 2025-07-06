@@ -22,8 +22,8 @@ public class BrandServiceImpl implements IBrandService {
             return brandRepository.save(brand);
         } catch (Exception e) {
             throw new GeneralException(
-                    GeneralConstants.TASK_CREATION_ERROR_CODE,
-                    GeneralConstants.TASK_CREATION_ERROR_MESSAGE);
+                    GeneralConstants.BRAND_CREATION_ERROR_CODE,
+                    GeneralConstants.BRAND_CREATION_ERROR_MESSAGE);
         }
     }
     public List<Brand> findAllBrands() throws GeneralException {
@@ -42,7 +42,7 @@ public class BrandServiceImpl implements IBrandService {
             if(optionalBrand.isPresent()) {
                 return optionalBrand.get();
             } else {
-                throw new GeneralException(GeneralConstants.TASK_NOT_FOUND_CODE, GeneralConstants.TASK_NOT_FOUND_MESSAGE);
+                throw new GeneralException(GeneralConstants.BRAND_NOT_FOUND_CODE, GeneralConstants.BRAND_NOT_FOUND_MESSAGE);
             }
         } catch (GeneralException genEx) {
             throw genEx;
@@ -59,7 +59,7 @@ public class BrandServiceImpl implements IBrandService {
             if(optionalBrand.isPresent()) {
                 return optionalBrand.get();
             } else {
-                throw new GeneralException(GeneralConstants.TASK_NOT_FOUND_CODE, GeneralConstants.TASK_NOT_FOUND_MESSAGE);
+                throw new GeneralException(GeneralConstants.BRAND_NOT_FOUND_CODE, GeneralConstants.BRAND_NOT_FOUND_MESSAGE);
             }
         } catch (GeneralException genEx) {
             throw genEx;
@@ -73,15 +73,15 @@ public class BrandServiceImpl implements IBrandService {
     public Brand updateBrand(Brand brand) throws GeneralException {
         if (brand.getId() == null || !brandRepository.existsById(brand.getId())) {
             throw new GeneralException(
-                    GeneralConstants.TASK_NOT_FOUND_CODE,
-                    GeneralConstants.TASK_NOT_FOUND_MESSAGE
+                    GeneralConstants.BRAND_NOT_FOUND_CODE,
+                    GeneralConstants.BRAND_NOT_FOUND_MESSAGE
             );
         } try {
             return brandRepository.save(brand);
         } catch (Exception e) {
             throw new GeneralException(
-                    GeneralConstants.TASK_UPDATE_ERROR_CODE,
-                    GeneralConstants.TASK_UPDATE_ERROR_MESSAGE
+                    GeneralConstants.BRAND_UPDATE_ERROR_CODE,
+                    GeneralConstants.BRAND_UPDATE_ERROR_MESSAGE
             );
         }
     }
@@ -89,8 +89,8 @@ public class BrandServiceImpl implements IBrandService {
     public boolean deleteBrandById(Long id) throws GeneralException {
         if (id == null || !brandRepository.existsById(id)) {
             throw new GeneralException(
-                    GeneralConstants.TASK_NOT_FOUND_CODE,
-                    GeneralConstants.TASK_NOT_FOUND_MESSAGE
+                    GeneralConstants.BRAND_NOT_FOUND_CODE,
+                    GeneralConstants.BRAND_NOT_FOUND_MESSAGE
             );
         }
 
@@ -99,8 +99,8 @@ public class BrandServiceImpl implements IBrandService {
             return true;
         } catch (Exception e) {
             throw new GeneralException(
-                    GeneralConstants.TASK_DELETE_ERROR_CODE,
-                    GeneralConstants.TASK_DELETE_ERROR_MESSAGE
+                    GeneralConstants.BRAND_DELETE_ERROR_CODE,
+                    GeneralConstants.BRAND_DELETE_ERROR_MESSAGE
             );
         }
     }
