@@ -7,10 +7,10 @@ spring:
   application:
     name: crm_db
   datasource:
-    url: jdbc:mysql://localhost:3306/crm_db
+    url: ${MYSQL_URL}
 #    parametrizar localhost
-    username: root
-    password: admin
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
