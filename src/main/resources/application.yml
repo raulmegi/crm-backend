@@ -8,9 +8,9 @@ spring:
     name: railway
 
   datasource:
-    url:      jdbc:${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url:      jdbc:${MYSQLURL}
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
