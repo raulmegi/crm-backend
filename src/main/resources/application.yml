@@ -5,7 +5,7 @@ spring:
   main:
     allow-circular-references: true
   application:
-    name: crm_db
+    name: railway
   datasource:
     url: jdbc:${{ MySQL.MYSQL_URL }}
 #    parametrizar localhost
