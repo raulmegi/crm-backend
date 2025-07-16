@@ -1,32 +1,30 @@
 server:
-  port: 8081
-#  parametrizar puerto
+  port: ${PORT:8080}
+
 spring:
   main:
     allow-circular-references: true
   application:
     name: railway
+
   datasource:
-    url: jdbc:mysql://mysql.railway.internal:3306/railway
-#    parametrizar localhost
-    username: root
-    password: ZAntulGkSFWFWKNODMJwJxrWkyYmIvYK
+    url:      jdbc:${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-#      driver: com.mysql.cj.jdbc.Driver
       ddl-auto: none
       dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+
 jwt:
   secret: MyCookieJar123
+
 springdoc:
   swagger-ui:
-    #url: https://crm-backend-production-e638.up.railway.app/v3/api-docs
-    #path: /index.html
     operationsSorter: method
