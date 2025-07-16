@@ -27,5 +27,6 @@ jwt:
   secret: MyCookieJar123
 springdoc:
   swagger-ui:
-    path: /crm_db.html
+    url: https://crm-backend-production-e638.up.railway.app/v3/api-docs
+    #path: /index.html
     operationsSorter: method
