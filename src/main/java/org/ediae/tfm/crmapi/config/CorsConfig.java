@@ -1,4 +1,5 @@
 package org.ediae.tfm.crmapi.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -10,14 +11,13 @@ public class CorsConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                        .allowedOriginPatterns("*")
-                        .allowedHeaders("*")
-                        .allowCredentials(true)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
-
+                registry.addMapping("/**")
+                    .allowedOriginPatterns("*")    // para soportar '*' con allowCredentials
+                    .allowedHeaders("*")
+                    .allowCredentials(true)
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         };
     }
