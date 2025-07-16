@@ -7,7 +7,7 @@ spring:
   application:
     name: crm_db
   datasource:
-    url: jdbc:${MYSQL_URL}
+    url: jdbc:${{ MySQL.MYSQL_URL }}
 #    parametrizar localhost
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
