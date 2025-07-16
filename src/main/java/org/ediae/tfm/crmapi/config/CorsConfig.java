@@ -14,7 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins(
+              "http://localhost:4200",                           // tu front local
+              "https://crm-backend-production-e638.up.railway.app" // tu Swagger UI en prod
+            )
                         .allowedHeaders("*")
                         .allowCredentials(true)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
