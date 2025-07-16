@@ -7,7 +7,7 @@ spring:
   application:
     name: railway
   datasource:
-    url: jdbc:${{ MySQL.MYSQL_URL }}
+    url: jdbc:${MYSQL_URL}
 #    parametrizar localhost
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
