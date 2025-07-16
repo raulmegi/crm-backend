@@ -7,10 +7,10 @@ spring:
   application:
     name: railway
   datasource:
-    url: jdbc:${MYSQL_URL}
+    url: jdbc:mysql://mysql.railway.internal:3306/railway
 #    parametrizar localhost
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    username: root
+    password: ZAntulGkSFWFWKNODMJwJxrWkyYmIvYK
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
